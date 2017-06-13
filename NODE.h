@@ -27,7 +27,7 @@ typedef std::tr1::unordered_set<int> UOrderedSet_INT;
 class NODE {
 public:
 	int ID;
-	int numNbs;
+	int numNbs;  //与此节点相连接的节点数
 	//vector<int> nbList;
 	vector<NODE *> nbList_P;   //the pointer version
 	//set<int> nbSet;

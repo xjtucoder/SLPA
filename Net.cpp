@@ -61,7 +61,7 @@ void Net::readNet(string fileName,bool isSymmetrize){
 	//read the pairs file: 3 or 2 col, the w is IGNORED
 	// Lines not starting with a number are ignored
 	// *1.remove self loop
-	// *2.auto symmetrize (no matter if it is already is)
+	// *2.auto symmetrize 对称  (no matter if it is already is)
 
 	string oneLine, whiteSpace=" \t\n";
 	fstream fp;

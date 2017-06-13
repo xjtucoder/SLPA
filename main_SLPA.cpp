@@ -34,7 +34,8 @@ map<string,string> readinParameter(int argc,char* argv[]){
 	usage+= "  -d output director (default: output)\n";
 	usage+= "  -L set to 1 to use only the largest connected component\n";
 	usage+= "  -t maximum iteration (default: 100)\n";
-	usage+= "  -run number of repetitions\n";
+	//程序重复跑的次数
+	usage+= "  -run number of repetitions\n"; 
 	usage+= "  -r a specific threshold in [0,0.5)\n";
 	usage+= "  -ov set to 0 to perform disjoint detection\n";
 	usage+= "  -M the number of threads(for multi-threading)\n";
@@ -45,7 +46,8 @@ map<string,string> readinParameter(int argc,char* argv[]){
 		string arg(argv[i]);
 		string val(argv[i+1]); //**
 
-		if(arg.compare("-t")==0 || arg.compare("-ov")==0 || arg.compare("-r")==0 || arg.compare("-run")==0 || arg.compare("-i")==0 || arg.compare("-d")==0  || arg.compare("-L")==0  || arg.compare("-M")==0){
+		if(arg.compare("-t")==0 || arg.compare("-ov")==0 || arg.compare("-r")==0 || arg.compare("-run")==0 || arg.compare("-i")==0 
+		|| arg.compare("-d")==0  || arg.compare("-L")==0  || arg.compare("-M")==0){
 			if(val.compare(0,1,"-")!=0){
 				argTable.insert(pair<string,string>(arg,val));
 				i++;continue;
@@ -80,7 +82,7 @@ void assignParameter(map<string,string>& argTable,int& maxT,bool& isUseLargestCo
 
 	map<string,string>::iterator mit;
 	//----------------------------------------
-	//			GLPA parameters
+	//			SLPA parameters
 	//----------------------------------------
 	key="-t";
 	if(argTable.count(key)>0){
@@ -187,7 +189,8 @@ int main(int argc, char* argv[]) {
 	//----------------------------------------
 	//			Read in parameter
 	//----------------------------------------
-	map<string,string> argTable=readinParameter(argc,argv);
+	//存放<参数说明, 参数值>的map
+	map<string,string> argTable=readinParameter(argc,argv); 
 	assignParameter(argTable,maxT,isUseLargestComp,isOverlapping,maxRun,THRS,inputFileName,outputDir,numThreads);
 
 	//----------------------------------------
@@ -197,8 +200,9 @@ int main(int argc, char* argv[]) {
 		cout<<"ERROR: input network "+inputFileName+" not found!"<<endl;
 		exit(1);
 	}else{
+		//取得系统时间
 		time_t st=time(NULL);
-
+		//
 		SLPA slpa(inputFileName,THRS,maxRun,maxT,outputDir,isUseLargestComp,numThreads);
 
 		cout<<"Running Time is :" <<difftime(time(NULL),st)<< " seconds."<<endl;

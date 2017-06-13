@@ -7,7 +7,9 @@
 // Description : SLPA algorithm for community detection.
 // Web Site    : https://sites.google.com/site/communitydetectionslpa/
 // Publication:
-//             J. Xie, B. K. Szymanski and X. Liu, "SLPA: Uncovering Overlapping Communities in Social Networks via A Speaker-listener Interaction Dynamic Process", IEEE ICDM workshop on DMCCI 2011, Vancouver, CA.
+//             J. Xie, B. K. Szymanski and X. Liu, "SLPA: Uncovering Overlapping Communities 
+//in Social Networks via A Speaker-listener Interaction Dynamic Process", 
+//IEEE ICDM workshop on DMCCI 2011, Vancouver, CA.
 //============================================================================
 
 #include "SLPA.h"
@@ -23,7 +25,8 @@ typedef std::tr1::unordered_map<int, int> UOrderedH_INT_INT;
 
 bool SLPA::isDEBUG=false;
 
-SLPA::SLPA(string inputFileName,vector<double> THRS,int maxRun,int maxT,string outputDir,bool isUseLargestComp,int numThreads) {
+SLPA::SLPA(string inputFileName,vector<double> THRS,int maxRun,int maxT,string outputDir,
+bool isUseLargestComp,int numThreads) {
 	//inputFileName: the full path
 	//netName: short filename(non-suf)
 
@@ -79,7 +82,7 @@ void SLPA::start(){
 	bool isSymmetrize=true; //symmetrize the edges
 
 	net->readNetwork_EdgesList(fileName_net,isUseLargestComp,isSymmetrize);
-	cout<<"Network info: N="<<net->N<< " M="<<net->M<<"(symmetric)"<<endl;
+	cout<<"Network info: Node="<<net->N<< " Edge="<<net->M<<"(symmetric)"<<endl;
 	cout<<"load "<<fileName_net<< " done.."<<endl;
 
 	//net.showVertices();
@@ -167,14 +170,15 @@ void SLPA::GLPA_asyn_pointer(){
 	vector<int> nbWs;
 	map<int,NODE *>::iterator mit;
 
-	//t=1 because we initialize the WQ(t=0)
+	//t=1 because we initialize the WQ when t=0
 	cout<<"Start iteration:";
 
 	for(int t=1;t<maxT;t++){
 		//1.shuffle
 		//cout<<"-------------t="<<t<<"---------------------"<<endl;
-		cout<<"*"<<flush;
-		srand (time(NULL)); // ***YOU need to use this, such that you can get a new one each time!!!!! seed the random number with the system clock
+		cout<<"*"<<flush;  //刷新输出缓冲区
+		srand (time(NULL)); // YOU need to use this, such that you can get a new one each time!!!!! 
+		//seed the random number with the system clock
 		random_shuffle (net->NODES.begin(), net->NODES.end());
 		//net->showVertices();
 
